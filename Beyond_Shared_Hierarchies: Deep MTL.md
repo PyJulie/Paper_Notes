@@ -17,8 +17,7 @@
 ### 1.2
 * MTL基于以下假设：模型学习到的transformations可以在各个任务之间共享。 
 * 本文确定了深度MTL现有方法的另一个隐含假设：这种共享通过层的parallel ordering来实现。也就是说，任务之间的共享仅发生在模型体系结构所隐含的特征层次结构中的对齐层上。 此约束限制了任务之间可能发生的共享类型。因为任务是多样复杂的。
-* **Permuted Ordering的概念：in which shared layers are applied in different orders for differ-
-ent tasks** 个人理解：对于不同的任务，权重分享层会以不同的顺序去分配权重（应该不是人为调控的，是可以学习到的）
+* **Permuted Ordering的概念：in which shared layers are applied in different orders for different tasks** 个人理解：对于不同的任务，权重分享层会以不同的顺序去分配权重（应该不是人为调控的，是可以学习到的）
 * **本文主要研究DMTL是否需要parallel ordering，通过Section.3的实验（引入了Permuted Ordering）得出结论：使用PO可以使integration of information across tasks表现更好，然后作者构建了一种名叫soft ordering的方法应用在DMTL上（下文还会提到）。**
 
 ### 1.3
