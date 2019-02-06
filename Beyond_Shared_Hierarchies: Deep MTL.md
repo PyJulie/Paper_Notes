@@ -51,3 +51,5 @@
 * ![图片2](images/Beyond_Shared_Hierarchies/figure2.jpg)
 * 在实验演示的ReLU中，Parallel Order是不必要的。结论：共享层的permuted ordering简化了跨任务的信息集成。
 * 思考：为什么在Linear networks中，两者的表现不一样呢？
+
+### 4
