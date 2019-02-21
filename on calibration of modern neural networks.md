@@ -66,7 +66,6 @@
 
 ## 另谈
 * 知乎上看到的，[原文链接](https://zhuanlan.zhihu.com/p/38245449)
-<blockquote>
 目前为止我也没找到什么解决模型输出置信度问题的特别好的解决方案,而我自己的方法很普通，就是
 * Majority Voting with Predefined Confidence Value
 下面我要说一堆的废话了：
@@ -80,4 +79,4 @@
 * ![左一为预测正确的分布，右一为预测错误的分布
 ](https://pic4.zhimg.com/80/v2-1b23bc1940f060d1af355214f1f40563_hd.jpg)
 左一为预测正确的分布，右一为预测错误的分布，我更希望模型做出判断，尽量是对的，哪怕有很多测试数据没法做出判断也没关系
-</blockquote>
+
