@@ -1,3 +1,5 @@
+[原论文链接](https://arxiv.org/pdf/1706.04599.pdf)
+
 ## 摘要
 * 置信度校准 - 预测代表真实正确性的概率值估计问题，作者提出了temperature scaling，一种plat scaling的single parameter方法，可以有效地作用于calibrating predictions
 
@@ -64,26 +66,18 @@
 
 ## 另谈
 * 知乎上看到的，[原文链接](https://zhuanlan.zhihu.com/p/38245449)
-* 目前为止我也没找到什么解决模型输出置信度问题的特别好的解决方案
-* 而我自己的方法很普通，就是
+<blockquote>
+目前为止我也没找到什么解决模型输出置信度问题的特别好的解决方案,而我自己的方法很普通，就是
 * Majority Voting with Predefined Confidence Value
-* 下面我要说一堆的废话了：
-
+下面我要说一堆的废话了：
 * Step 1 我会用同一套训练数据训练大概30种常用CNN模型，比如Resnet, Xception等等，然后再自己设计20种左右的CNN模型
-
 * Step 2 从上面50种模型中找出performance表现最好的3种模型，并且这3种模型的结构必须差异化明显，比如以深度为主的Resnet, 和宽度为主的Inception
-
 * Step 3 对这3个模型再次进行深度调参，直到3个模型达到最优performance
-
 * Step 4 用这3个模型进行Majority voting：
-
 * 4.1 voting小于2个agrees，confidence value为0.1
-
 * 4.2 voting等于2个agrees，confidence value为0.5
-
 * 4.3 voting等于3个agrees，confidence value为1.0
 * ![左一为预测正确的分布，右一为预测错误的分布
 ](https://pic4.zhimg.com/80/v2-1b23bc1940f060d1af355214f1f40563_hd.jpg)
-* 左一为预测正确的分布，右一为预测错误的分布
-* 我更希望模型做出判断，尽量是对的，哪怕有很多测试数据没法做出判断也没关系
-
+左一为预测正确的分布，右一为预测错误的分布，我更希望模型做出判断，尽量是对的，哪怕有很多测试数据没法做出判断也没关系
+</blockquote>
