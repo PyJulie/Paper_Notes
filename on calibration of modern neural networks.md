@@ -13,9 +13,51 @@
 * 这篇论文的idea是对于一定数量的测试集，模型越可靠，平均置信度（Average Confidence）越接近准确率（Accuracy）。
 * 从上图中可以发现，虽然Lenet 准确率比Resent低，但Lenet 模型输出置信度更能够代表真实的概率估计。
 
-### 定义
+## 定义
 * acc(Bm) = 1/|Bm| * ∑ 1(yi' = yi)
 * conf(Bm) = 1/|Bm| * ∑ pi'
 * 完美模型就是 acc = conf
 * ![ECE](images/on_cali/ece.png)
 * ![MCE](images/on_cali/mce.png)
+* 完美模型，ECE和MCE都为0
+* Negative log likehood是一个衡量模型质量的标准，和深度学习中的交叉熵loss很相似。
+* L = -∑log(π'(yi|xi))，当π'和真实值一样时，其达到最小值。
+
+## 观察miscalibration
+### Model capacity
+* ![图2](images/on_cali/figure2.png)
+* 从模型大小来看，对模型进行改动会对ECE产生如图所示的变化
+* 增加置信度可以最小化NLL，增加模型的深度和宽度总体而言会降低NLL，模型也会更加自信。
+### Batch Normalization
+* 谈到了Batch Normalization的影响
+* 虽然无法精确指出具体如何影响预测准确率，但作者实验观察到加入了BN反而会使模型miscalibrated
+* 如图2所示，而且结果好坏与超参数无关，例如学习率大小
+### Weight decay
+* 出现了over-regularization和under-regularization，但不会因为WD的升高而出现负面影响。
+* 实现最佳精度以后，可以添加更多的regularization，模型将继续改进。
+* 最后轻微的升高可能是一些人为因素阻碍了优化。
+### NLL
+* ![图3](images/on_cali/figure3.png)
+* NLL是一种间接衡量模型calibration的方法。
+* 作者发现，over-fitting NLL有助于提高分类准确性，测试中，error从29%降到了27%，但NLL此时处于over-fitting
+* 网络会以well-modeled probabilities为代价，去学习更高的分类准确率。
+
+## 校准方法
+* 验证集固定且和训练集来自同一分布
+### 二分类模型
+* histogram binning
+* isotonic regression
+* bayesian binning into quantiles
+* platt scaling
+### 多分类模型
+* extension of binning methods
+* matrix and vector scaling
+* temperature scaling
+## 其他一些方法
+* 详见论文
+## 实验结果
+* ![结果](images/on_cali/result1.png)
+* 作者发现temperature scaling 有很好的效果，只有Reuters上表现一般，作者分析认为可能一开始就有很好的calibrating，也可能与数据集拆分有关。
+* ![结果](images/on_cali/result2.png)
+## 结论
+* temperature scaling真的很好用
